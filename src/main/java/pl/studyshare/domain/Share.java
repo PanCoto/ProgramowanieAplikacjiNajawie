@@ -16,7 +16,7 @@ public class Share implements Serializable {
     private Long id;
 
     @Column(unique = true)
-    private String token; 
+    private String token;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Task task;
