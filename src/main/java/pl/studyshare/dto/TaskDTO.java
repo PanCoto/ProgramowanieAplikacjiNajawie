@@ -1,0 +1,10 @@
+package pl.studyshare.dto;
+
+import pl.studyshare.enums.TaskStatus;
+import java.time.LocalDate;
+
+public record TaskDTO (
+    Long id, String title, String content, String imageUrl,
+    TaskStatus status, LocalDate createdDate, String authorName,
+    String categoryName, int questionCount, int answerCount, int upvoteSummary
+) {}
