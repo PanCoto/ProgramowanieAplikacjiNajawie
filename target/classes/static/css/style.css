@@ -1,0 +1,55 @@
+:root
+{
+    --primary-color: #2563eb;
+    --secondary-color: #64748b;
+    --bg-color: #f8fafc;
+}
+
+body
+{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serfi;
+    background-color: var(--bg-color);
+    margin: 0;
+    padding: 0;
+}
+
+header
+{
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 1);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+main
+{
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.error-msg
+{
+    color: #dc2626;
+    font-size: 0.875rem;
+}
+
+form
+{
+    background: white;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+}
+
+.btn
+{
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    border: none;
+    background: var(--primary-color);
+    color: white;
+}

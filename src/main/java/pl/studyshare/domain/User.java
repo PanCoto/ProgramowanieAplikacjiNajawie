@@ -34,8 +34,8 @@ public class User implements Serializable
     private String login;
 
     @NotBlank @Size(min = 8)
-    @Pattern(regexp = "^(?=.*[a-z])(?=.[A-Z])(?=.*\\d)(?=.*[^a-zA-Z\\d]).+$",
-            message="Hasło musi składać się ze znaku specjalnego, cyfry oraz małej i dużej litery")
+    // @Pattern(regexp = "^(?=.*[a-z])(?=.[A-Z])(?=.*\\d)(?=.*[^a-zA-Z\\d]).+$",
+    //        message="Hasło musi składać się ze znaku specjalnego, cyfry oraz małej i dużej litery")
     private String password;
 
     @Min(13)
