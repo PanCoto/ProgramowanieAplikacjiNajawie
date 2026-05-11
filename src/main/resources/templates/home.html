@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+    <head>
+        <meta charset="UTF-8">
+        <title>StudyShare - Home</title>
+        <link rel="stylesheet" th:href="@{/css/style.css}">
+    </head>
+
+    <body>
+        <header role="banner">
+            <h1>StudyShare</h1>
+            <nav role="navigation">
+                <a th:href="@{/login}" th:if="${#auth.request.remoteUser == null}">
+                    Zaloguj
+                </a>
+                <span th:if="${auth.request.remoteUser == null}">
+                    Witamy, <span th:text="${#auth.request.remoteUser}">User</span>!
+                    <form th:action="@{/logout}" method="post" style="display:inline; box-shadow:none; padding:0;">
+                    <button type="submit" class="btn">Wyloguj</button>
+                    </form>
+
+                </span>
+            </nav>
+        </header>
+
+        <main role="main">
+            <section>
+                <h2>WIP</h2>
+                <p>Witaj na platformie StudyShare. Tutaj możesz WIP.</p>
+            </section>
+        </main>
+    </body>
+</html>
