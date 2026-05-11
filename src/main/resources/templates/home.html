@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StudyShare - Tablica Główna</title>
+    <title>墨迹.hub</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 <header role="banner">
     <div class="logo">
-        <a th:href="@{/}"><h1>StudyShare</h1></a>
+        <a th:href="@{/}"><h1>墨迹.hub</h1></a>
     </div>
     <nav role="navigation" aria-label="Menu główne">
         <ul style="list-style: none; display: flex; gap: 20px; align-items: center;">
@@ -43,10 +43,10 @@
         <p>Przeglądaj najnowsze zatwierdzone zadania i ucz się razem z nami.</p>
     </section>
 
-  <!--  <section id="tasks-list">
-        <h3>Najnowsze zadania (REQ_ID: ADD1)</h3>
+    <section id="tasks-list">
+        <h3>Najnowsze zadania : </h3>
 
-        <div th:if="${Task.EMPTY}">
+        <div th:if="${#lists.isEmpty(tasks)}">
             <p>Obecnie nie ma żadnych zatwierdzonych zadań. Zaloguj się, aby dodać pierwsze!</p>
         </div>
 
@@ -65,11 +65,11 @@
             </div>
             <a th:href="@{/api/shares/{id}(id=${task.id})}" class="btn" style="display:inline-block; margin-top: 10px; text-decoration: none; font-size: 0.8rem;">Zobacz szczegóły</a>
         </div>
-    </section>-->
+    </section>
 </main>
 
 <footer role="contentinfo" style="text-align: center; padding: 2rem; color: #64748b;">
-    <p>&copy; 2024 StudyShare Platform. Wszystkie prawa zastrzeżone.</p>
+    <p>&copy; 2026 墨迹.hub Platform. Wszystkie prawa zastrzeżone.</p>
 </footer>
 </body>
 </html>

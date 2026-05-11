@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Rejestracja - StudyShare</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<main>
+    <form th:action="@{/register}" th:object="${user}" method="post" style="max-width: 500px; margin: 3rem auto;">
+        <h2>Utwórz konto</h2>
+
+        <div>
+            <label>Imię:</label>
+            <input type="text" th:field="*{firstName}">
+            <p class="error-msg" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></p>
+        </div>
+
+        <div>
+            <label>Nazwisko:</label>
+            <input type="text" th:field="*{lastName}">
+            <p class="error-msg" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></p>
+        </div>
+
+        <div>
+            <label>Login:</label>
+            <input type="text" th:field="*{login}">
+            <p class="error-msg" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></p>
+        </div>
+
+        <div>
+            <label>Hasło:</label>
+            <input type="password" th:field="*{password}">
+            <p class="error-msg" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+        </div>
+
+        <div>
+            <label>Wiek:</label>
+            <input type="number" th:field="*{age}">
+            <p class="error-msg" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></p>
+        </div>
+
+        <button type="submit" class="btn" style="margin-top: 20px;">Zarejestruj się</button>
+        <p>Masz już konto? <a th:href="@{/login}">Zaloguj się</a></p>
+    </form>
+</main>
+</body>
+</html>

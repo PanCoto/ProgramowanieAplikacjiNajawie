@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${task.title} + ' - StudyShare'"></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header th:replace="~{home :: header}"></header>
+
+<main>
+    <article class="task-full">
+        <h2 th:text="${task.title}"></h2>
+        <div class="meta" style="color: #666; margin-bottom: 20px;">
+            Kategoria: <span th:text="${task.category.name}"></span> |
+            Data: <span th:text="${task.createdDate}"></span> |
+            Autor: <span th:text="${task.anonymous ? 'Anonim' : task.author.login}"></span>
+        </div>
+
+        <div class="content" th:text="${task.content}" style="white-space: pre-wrap; margin-bottom: 30px;"></div>
+
+        <div th:if="${task.imageUrl}" class="image">
+            <img th:src="${task.imageUrl}" alt="Ilustracja do zadania" style="max-width: 100%;">
+        </div>
+    </article>
+
+    <hr>
+
+    <section class="answers">
+        <h3>Odpowiedzi</h3>
+
+        <div th:if="${#lists.isEmpty(task.answers)}">Brak odpowiedzi. Bądź pierwszy!</div>
+
+        <div th:each="ans : ${task.answers}" class="answer-card"
+             th:style="${ans.isOfficial} ? 'border-left: 5px solid #fbbf24; padding: 15px; background: #fffbeb; margin-bottom: 10px;' : 'border: 1px solid #ddd; padding: 15px; margin-bottom: 10px;'">
+
+            <div th:if="${ans.isOfficial}" style="font-weight: bold; color: #d97706; margin-bottom: 5px;">
+                Odpowiedź Oficjalna
+            </div>
+
+            <p th:text="${ans.content}"></p>
+
+            <div class="ans-meta" style="font-size: 0.8rem; color: #888;">
+                Przez: <span th:text="${ans.anonymous ? 'Anonim' : ans.author.login}"></span> |
+                Wynik: <strong th:text="${ans.score}">0</strong>
+            </div>
+
+            <div class="voting" style="margin-top: 10px;">
+                <button class="btn" style="padding: 2px 8px;">+</button>
+                <button class="btn" style="padding: 2px 8px; background: #94a3b8;">-</button>
+            </div>
+        </div>
+
+        <div sec:authorize="isAuthenticated()" style="margin-top: 30px;">
+            <h4>Dodaj swoją odpowiedź</h4>
+            <form th:action="@{/answers/add/{id}(id=${task.id})}" method="post">
+                <textarea name="content" required style="width: 100%; min-height: 100px;"></textarea><br>
+                <label>
+                    <input type="checkbox" name="anonymous"> Dodaj anonimowo
+                </label><br><br>
+                <button type="submit" class="btn">Opublikuj odpowiedź</button>
+            </form>
+        </div>
+    </section>
+</main>
+</body>
+</html>

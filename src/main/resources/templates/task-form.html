@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>StudyShare</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<main>
+    <form th:action="@{/tasks/create}" th:object="${task}" method="post">
+        <h2>Kreator Zadania</h2>
+
+        <label>Tytuł:
+            <input type="text" th:field="*{title}">
+            <span class="error-msg" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+        </label><br>
+
+        <label>Treść:
+            <textarea th:field="*{content}"></textarea>
+            <span class="error-msg" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></span>
+        </label><br>
+
+        <label>URL Obrazka (Opcjonalnie):
+            <input type="url" th:field="*{imageUrl}">
+        </label><br>
+
+        <label>Kategoria:
+            <select th:field="*{category.id}">
+                <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}"></option>
+            </select>
+        </label><br>
+
+        <label>
+            <input type="checkbox" th:field="*{anonymous}"> Opublikuj anonimowo
+        </label>
+
+        <hr>
+        <h3>Pytania (Kreator Dynamiczny)</h3>
+        <div id="questions-container"></div>
+        <button type="button" id="add-question-btn" class="btn"> Dodaj pytanie</button>
+
+        <div style="margin-top: 20px;">
+            <button type="submit" class="btn">Zapisz zadanie</button>
+            <a th:href="@{/tasks}">Anuluj</a>
+        </div>
+    </form>
+</main>
+<script th:src="@{/js/task-creator.js}"></script>
+</body>
+</html>

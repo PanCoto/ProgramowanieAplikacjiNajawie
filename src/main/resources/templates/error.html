@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Błąd - StudyShare</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<main style="text-align: center; margin-top: 5rem;">
+    <h1>Wystąpił błąd!</h1>
+    <p th:text="${message}">Przepraszamy, coś poszło nie tak.</p>
+    <p>Kod statusu: <span th:text="${status}">500</span></p>
+    <a th:href="@{/}" class="btn">Wróć do strony głównej</a>
+</main>
+</body>
+</html>
