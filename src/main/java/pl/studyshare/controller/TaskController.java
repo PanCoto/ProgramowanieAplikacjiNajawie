@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import pl.studyshare.domain.Category;
 import pl.studyshare.domain.Task;
 import pl.studyshare.domain.User;
 import pl.studyshare.repository.UserRepository;
@@ -64,13 +65,20 @@ public class TaskController
     }
 
     @GetMapping("/create")
-    public String createTask(@Valid @ModelAttribute("task") Task task,
-                             BindingResult result,
-                             @AuthenticationPrincipal UserDetails userDetails,
-                             Model model)
-    {
-        if (result.hasErrors())
-        {
+    public String showCreateForm(Model model) {
+        Task task = new Task();
+        task.setCategory(new Category());
+        model.addAttribute("task", task);
+        model.addAttribute("categories", categoryService.findAll());
+        return "task-form";
+    }
+
+    @PostMapping("/create")
+    public String processCreateForm(@Valid @ModelAttribute("task") Task task,
+                                    BindingResult result,
+                                    @AuthenticationPrincipal UserDetails userDetails,
+                                    Model model) {
+        if (result.hasErrors()) {
             model.addAttribute("categories", categoryService.findAll());
             return "task-form";
         }
