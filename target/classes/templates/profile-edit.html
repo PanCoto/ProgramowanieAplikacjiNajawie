@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Mój Profil - StudyShare</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header th:replace="~{home :: header}"></header>
+
+<main>
+    <form th:action="@{/profile/edit}" th:object="${userUpdateRequest}" method="post" style="max-width: 500px; margin: 2rem auto;">
+        <h2>Edycja Profilu (REQ_ID: ED1)</h2>
+
+        <div th:if="${param.success}" style="color: green; margin-bottom: 15px;">
+            Profil został pomyślnie zaktualizowany!
+        </div>
+
+        <div>
+            <label>Imię:</label>
+            <input type="text" th:field="*{firstName}">
+            <p class="error-msg" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></p>
+        </div>
+
+        <div>
+            <label>Nazwisko:</label>
+            <input type="text" th:field="*{lastName}">
+            <p class="error-msg" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></p>
+        </div>
+
+        <div>
+            <label>Wiek:</label>
+            <input type="number" th:field="*{age}">
+            <p class="error-msg" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></p>
+        </div>
+
+        <button type="submit" class="btn" style="margin-top: 20px;">Zapisz zmiany</button>
+        <a th:href="@{/}" style="margin-left: 15px;">Wróć</a>
+    </form>
+</main>
+</body>
+</html>
