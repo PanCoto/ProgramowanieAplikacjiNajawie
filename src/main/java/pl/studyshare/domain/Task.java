@@ -22,7 +22,7 @@ public class Task implements Serializable
     private Long id;
 
     @NotBlank @Size(min = 5, max=150)
-    private String Title;
+    private String title;
 
     @NotBlank @Size(min = 20, max=5000)
     @Column(columnDefinition = "TEXT")
