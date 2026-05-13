@@ -6,7 +6,8 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<header th:replace="~{home :: header}"></header>
+<!-- POPRAWKA TUTAJ: ścieżka do fragments/header -->
+<header th:replace="~{fragments/header :: header}"></header>
 
 <main>
     <div class="toolbar" style="margin-bottom: 20px; display: flex; gap: 15px; align-items: flex-end;">
@@ -17,40 +18,14 @@
                     <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}"></option>
                 </select>
             </label>
-            <label>Data:
-                <select name="days">
-                    <option value="0">Dowolna</option>
-                    <option value="7">Ostatnie 7 dni</option>
-                    <option value="30">Ostatnie 30 dni</option>
-                </select>
-            </label>
             <button type="submit" class="btn">Filtruj</button>
         </form>
-
-        <form th:action="@{/tasks/set-sort}" method="post">
-            <label>Sortuj wg:
-                <select name="sortField">
-                    <option value="createdDate">Daty</option>
-                    <option value="title">Tytułu</option>
-                </select>
-            </label>
-            <select name="direction">
-                <option value="DESC">Malejąco</option>
-                <option value="ASC">Rosnąco</option>
-            </select>
-            <button type="submit" class="btn">Ustaw sortowanie</button>
-        </form>
-
         <a th:href="@{/tasks/create}" class="btn" style="background: #059669;">+ Dodaj zadanie</a>
     </div>
 
     <div th:each="task : ${tasks}" class="task-card">
         <h3 th:text="${task.title}"></h3>
         <p th:text="${#strings.abbreviate(task.content, 100)}"></p>
-        <div class="meta">
-            <span th:text="${task.category.name}"></span> |
-            <span th:text="${task.createdDate}"></span>
-        </div>
         <a th:href="@{/tasks/{id}(id=${task.id})}">Szczegóły</a>
     </div>
 </main>

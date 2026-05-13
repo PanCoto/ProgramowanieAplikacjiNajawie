@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="pl"
+      th:fragment="layout(content, bodyClass, pageTitle)">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle} ?: 'bookroot'">bookroot</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body th:classappend="${bodyClass}">
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<div class="content-wrapper">
+    <th:block th:if="${bodyClass == 'video-bg-page'}">
+        <div class="video-background">
+            <video autoplay muted loop playsinline>
+                <source th:src="@{/videos/background.mp4}" type="video/mp4">
+            </video>
+        </div>
+        <div class="bg-overlay"></div>
+    </th:block>
+
+    <main role="main">
+        <th:block th:insert="${content}" />
+    </main>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<th:block th:if="${bodyClass == 'video-bg-page'}">
+    <script>
+        (function() {
+            const video = document.querySelector('.video-background video');
+            if (video) {
+                video.muted = true;
+                video.play().catch(e => console.log("Autoplay niemożliwe", e));
+            }
+        })();
+    </script>
+</th:block>
+
+</body>
+</html>

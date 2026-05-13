@@ -25,6 +25,6 @@ public class VoteController {
 
         voteCollector.vote(id, delta);
 
-        return "redirect:/tasks/view/" + answer.getTask().getId();
+        return "redirect:/tasks/" + answer.getTask().getId();
     }
 }

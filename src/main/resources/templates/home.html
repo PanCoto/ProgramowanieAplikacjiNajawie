@@ -1,97 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>bookroot</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-</head>
-<body class="video-bg-page">
+      th:replace="~{layout :: layout(content=~{::section.home-content}, bodyClass='video-bg-page', pageTitle='bookroot - Strona główna')}">
+<body>
+<section class="home-content">
+    <section id="hero">
+        <h2>Publiczna Tablica Wiedzy</h2>
+        <p>Przeglądaj najnowsze zatwierdzone zadania i ucz się razem z nami.</p>
+    </section>
 
-<div class="content-wrapper">
-
-
-    <div class="video-background">
-        <video autoplay muted loop playsinline>
-            <source th:src="@{/videos/background.mp4}" type="video/mp4">
-            Twoja przeglądarka nie obsługuje wideo HTML5.
-        </video>
-    </div>
-    <div class="bg-overlay"></div>
-
-    <header role="banner">
-        <div class="logo">
-            <a th:href="@{/}"><h1>bookroot</h1></a>
+    <section id="tasks-list">
+        <h3>Najnowsze zadania : </h3>
+        <div th:if="${tasks == null || #lists.isEmpty(tasks)}">
+            <p>Obecnie nie ma żadnych zatwierdzonych zadań. Zaloguj się, aby dodać pierwsze!</p>
         </div>
-        <nav role="navigation" aria-label="Menu główne">
-            <ul style="list-style: none; display: flex; gap: 20px; align-items: center;">
-                <li><a th:href="@{/}">Główna</a></li>
-                <li sec:authorize="isAuthenticated()"><a th:href="@{/tasks}">Moje Zadania</a></li>
-                <li sec:authorize="hasRole('ADMIN')"><a th:href="@{/admin/users}">Panel Admina</a></li>
 
-                <li sec:authorize="isAnonymous()">
-                    <a th:href="@{/login}" class="btn">Zaloguj się</a>
-                </li>
-                <li sec:authorize="isAnonymous()">
-                    <a th:href="@{/register}">Rejestracja</a>
-                </li>
-
-                <li sec:authorize="isAuthenticated()">
-                    <span style="font-weight: bold;">
-                        Witaj, <span sec:authentication="name">Użytkownik</span>!
-                    </span>
-                    <form th:action="@{/logout}" method="post" style="display:inline; margin-left: 10px;">
-                        <button type="submit" class="btn" style="background: #ef4444;">Wyloguj</button>
-                    </form>
-                </li>
-            </ul>
-        </nav>
-    </header>
-
-    <main role="main">
-        <section id="hero">
-            <h2>Publiczna Tablica Wiedzy</h2>
-            <p>Przeglądaj najnowsze zatwierdzone zadania i ucz się razem z nami.</p>
-        </section>
-
-        <section id="tasks-list">
-            <h3>Najnowsze zadania : </h3>
-
-            <div th:if="${#lists.isEmpty(tasks)}">
-                <p>Obecnie nie ma żadnych zatwierdzonych zadań. Zaloguj się, aby dodać pierwsze!</p>
+        <div th:each="task : ${tasks}" class="task-card">
+            <h4 th:text="${task.title}">Tytuł zadania</h4>
+            <p th:text="${#strings.abbreviate(task.content, 150)}"></p>
+            <div class="task-meta" style="font-size: 0.85rem; color: #666; margin-top: 10px;">
+                <span>Kategoria: <strong th:text="${task.category != null ? task.category.name : 'Brak'}">Brak</strong></span> |
+                <span>Data: <span th:text="${task.createdDate}"></span></span>
             </div>
-
-            <div th:each="task : ${tasks}" class="task-card">
-                <h4 th:text="${task.title}">Tytuł zadania</h4>
-                <p th:text="${#strings.abbreviate(task.content, 150)}">Skrócona treść...</p>
-
-                <div class="task-meta" style="font-size: 0.85rem; color: #666; margin-top: 10px;">
-                    <span>Kategoria: <strong th:text="${task.category.name}">Brak</strong></span> |
-                    <span>Data: <span th:text="${task.createdDate}">2024-01-01</span></span> |
-                    <span>Autor:
-                        <span th:if="${!task.anonymous}" th:text="${task.author.login}">login</span>
-                        <span th:if="${task.anonymous}">Anonim</span>
-                    </span>
-                </div>
-                <a th:href="@{/api/shares/{id}(id=${task.id})}" class="btn" style="display:inline-block; margin-top: 10px; text-decoration: none; font-size: 0.8rem;">Zobacz szczegóły</a>
-            </div>
-        </section>
-    </main>
-</div>
-
-<footer role="contentinfo">
-    <p>&copy; 2026 bookRoot Platform. Wszystkie prawa zastrzeżone.</p>
-</footer>
-
-<script>
-    (function() {
-        const video = document.querySelector('.video-background video');
-        if (video) {
-            video.muted = true;
-            video.play().catch(e => console.log("Autoplay wideo niemożliwe", e));
-        }
-    })();
-</script>
+            <a th:href="@{/tasks/{id}(id=${task.id})}" class="btn" style="margin-top: 10px;">Zobacz szczegóły</a>
+        </div>
+    </section>
+</section>
 </body>
 </html>
