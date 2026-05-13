@@ -1,9 +1,49 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head></head>
 <body>
-<footer th:fragment="footer" role="contentinfo">
-    <p>&copy; 2026 bookRoot Platform. Wszystkie prawa zastrzeżone.</p>
+<footer th:fragment="footer">
+    <div class="footer-container">
+
+        <div class="footer-col">
+            <h5>bookRoot</h5>
+            <ul>
+                <li><a href="#">O nas</a></li>
+                <li><a href="#">Jak to działa</a></li>
+                <li><a href="#">Regulamin</a></li>
+                <li><a href="#">Polityka prywatności</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h5>Pomoc</h5>
+            <ul>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Kontakt</a></li>
+                <li><a href="#">Zgłoś błąd</a></li>
+                <li><a href="#">Status serwera</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h5>Edukacja</h5>
+            <ul>
+                <li><a href="#">Rankingi</a></li>
+                <li><a href="#">Kategorie zadań</a></li>
+                <li><a href="#">Współpraca</a></li>
+                <li><a href="#">Blog</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        <p class="disclaimer">
+            Serwis bookRoot jest platformą niezależną, niepowiązaną organizacyjnie ani patronacko z żadną instytucją edukacyjną. Materiały zamieszczane w Serwisie pochodzą z propozycji nadsyłanych przez użytkowników i są udostępniane po ich uprzedniej weryfikacji przez administratorów, którzy nie ponoszą odpowiedzialności za ostateczną treść publikacji. Wszelkie oznaczenia przedmiotów, inicjały oraz rozwinięte imiona i nazwiska postaci mają charakter wyłącznie porządkowy i fikcyjny; ewentualna zbieżność z danymi rzeczywistych osób jest przypadkowa i niezamierzona.
+        </p>
+        <p class="copyright">
+            &copy; 2025 bookRoot Platform. Wszystkie prawa zastrzeżone.
+        </p>
+    </div>
 </footer>
 </body>
 </html>

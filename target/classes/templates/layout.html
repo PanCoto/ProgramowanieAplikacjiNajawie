@@ -6,9 +6,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="${pageTitle} ?: 'bookroot'">bookroot</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-</head>
 
+    <link rel="stylesheet" th:href="@{/css/variables.css}">
+    <link rel="stylesheet" th:href="@{/css/layout.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/components.css}">
+</head>
 <body th:classappend="${bodyClass}">
 
 <div th:replace="~{fragments/header :: header}"></div>

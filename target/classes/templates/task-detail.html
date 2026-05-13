@@ -1,68 +1,57 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <title th:text="${task.title} + ' - StudyShare'"></title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-</head>
+      th:replace="~{layout :: layout(content=~{::article}, bodyClass='video-bg-page', pageTitle=${task.title} + ' - bookroot')}">
 <body>
-<header th:replace="~{home :: header}"></header>
-
-<main>
-    <article class="task-full">
+<article>
+    <div id="hero" style="text-align: left; padding: 2rem;">
         <h2 th:text="${task.title}"></h2>
-        <div class="meta" style="color: #666; margin-bottom: 20px;">
-            Kategoria: <span th:text="${task.category.name}"></span> |
-            Data: <span th:text="${task.createdDate}"></span> |
+        <p style="font-size: 0.9rem; margin-top: 10px;">
+            Kategoria: <strong th:text="${task.category.name}"></strong> |
             Autor: <span th:text="${task.anonymous ? 'Anonim' : task.author.login}"></span>
+        </p>
+    </div>
+
+    <div class="task-card" style="background: rgba(0,0,0,0.4); margin-bottom: 2rem;">
+        <div th:text="${task.content}" style="white-space: pre-wrap; font-size: 1.1rem; line-height: 1.6;"></div>
+        <div th:if="${task.imageURL}" style="margin-top: 20px;">
+            <img th:src="${task.imageURL}" alt="Zadanie" style="max-width: 100%; border-radius: 10px;">
         </div>
+    </div>
 
-        <div class="content" th:text="${task.content}" style="white-space: pre-wrap; margin-bottom: 30px;"></div>
-
-        <div th:if="${task.imageUrl}" class="image">
-            <img th:src="${task.imageUrl}" alt="Ilustracja do zadania" style="max-width: 100%;">
-        </div>
-    </article>
-
-    <hr>
-
-    <section class="answers">
+    <section id="tasks-list">
         <h3>Odpowiedzi</h3>
+        <div th:each="ans : ${task.answers}" class="task-card"
+             th:style="${ans.isOfficial} ? 'border: 2px solid #fbbf24; background: rgba(251, 191, 36, 0.05);' : ''">
 
-        <div th:if="${#lists.isEmpty(task.answers)}">Brak odpowiedzi. Bądź pierwszy!</div>
-
-        <div th:each="ans : ${task.answers}" class="answer-card"
-             th:style="${ans.isOfficial} ? 'border-left: 5px solid #fbbf24; padding: 15px; background: #fffbeb; margin-bottom: 10px;' : 'border: 1px solid #ddd; padding: 15px; margin-bottom: 10px;'">
-
-            <div th:if="${ans.isOfficial}" style="font-weight: bold; color: #d97706; margin-bottom: 5px;">
-                Odpowiedź Oficjalna
+            <div th:if="${ans.isOfficial}" style="color: #fbbf24; font-weight: bold; margin-bottom: 10px; font-size: 0.8rem; text-transform: uppercase;">
+                ⭐ Oficjalna odpowiedź
             </div>
 
             <p th:text="${ans.content}"></p>
 
-            <div class="ans-meta" style="font-size: 0.8rem; color: #888;">
-                Przez: <span th:text="${ans.anonymous ? 'Anonim' : ans.author.login}"></span> |
-                Wynik: <strong th:text="${ans.score}">0</strong>
-            </div>
-
-            <div class="voting" style="margin-top: 10px;">
-                <button class="btn" style="padding: 2px 8px;">+</button>
-                <button class="btn" style="padding: 2px 8px; background: #94a3b8;">-</button>
+            <div class="task-meta" style="margin-top: 15px; display: flex; justify-content: space-between; align-items: center;">
+                <span>Przez: <strong th:text="${ans.anonymous ? 'Anonim' : ans.author.login}"></strong></span>
+                <span style="font-weight: bold;">Wynik: <span th:text="${ans.score}">0</span></span>
             </div>
         </div>
 
-        <div sec:authorize="isAuthenticated()" style="margin-top: 30px;">
-            <h4>Dodaj swoją odpowiedź</h4>
+        <div th:if="${#lists.isEmpty(task.answers)}" style="color: white; opacity: 0.5; margin-bottom: 2rem;">
+            Brak odpowiedzi. Bądź pierwszy!
+        </div>
+
+        <div sec:authorize="isAuthenticated()" class="task-card" style="border: 1px dashed rgba(255,255,255,0.2);">
+            <h4>Dodaj odpowiedź</h4>
             <form th:action="@{/answers/add/{id}(id=${task.id})}" method="post">
-                <textarea name="content" required style="width: 100%; min-height: 100px;"></textarea><br>
-                <label>
-                    <input type="checkbox" name="anonymous"> Dodaj anonimowo
-                </label><br><br>
-                <button type="submit" class="btn">Opublikuj odpowiedź</button>
+                <textarea name="content" required style="width: 100%; min-height: 120px; background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 10px;"></textarea>
+                <div style="margin-top: 10px;">
+                    <label style="color: white; font-size: 0.8rem; cursor: pointer;">
+                        <input type="checkbox" name="anonymous"> Odpowiedz anonimowo
+                    </label>
+                </div>
+                <button type="submit" class="btn" style="margin-top: 15px;">Opublikuj</button>
             </form>
         </div>
     </section>
-</main>
+</article>
 </body>
 </html>

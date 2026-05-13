@@ -1,0 +1,8 @@
+:root {
+    --accent-color: #d946ef;
+    --accent-hover: #a21caf;
+    --glass-bg: rgba(0, 0, 0, 0.5);
+    --glass-border: rgba(255, 255, 255, 0.15);
+    --contrast-white: #ffffff;
+    --text-dark: #1e293b;
+}

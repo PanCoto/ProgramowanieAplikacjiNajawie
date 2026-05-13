@@ -1,33 +1,37 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <title>Lista Zadań - StudyShare</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-</head>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout(content=~{::section}, bodyClass='video-bg-page', pageTitle='Zadania - bookroot')}">
 <body>
-<!-- POPRAWKA TUTAJ: ścieżka do fragments/header -->
-<header th:replace="~{fragments/header :: header}"></header>
+<section>
+    <div id="hero" style="padding: 2rem; margin-bottom: 2rem;">
+        <h2 style="margin: 0;">Dostępne Zadania</h2>
+    </div>
 
-<main>
-    <div class="toolbar" style="margin-bottom: 20px; display: flex; gap: 15px; align-items: flex-end;">
-        <form th:action="@{/tasks}" method="get">
-            <label>Kategoria:
-                <select name="categoryId">
-                    <option value="">Wszystkie</option>
-                    <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}"></option>
-                </select>
-            </label>
+    <div class="toolbar">
+        <form th:action="@{/tasks}" method="get" class="filter-group">
+            <select name="categoryId">
+                <option value="">Wszystkie kategorie</option>
+                <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}"></option>
+            </select>
             <button type="submit" class="btn">Filtruj</button>
         </form>
-        <a th:href="@{/tasks/create}" class="btn" style="background: #059669;">+ Dodaj zadanie</a>
+
+        <a th:href="@{/tasks/create}" class="btn" style="background: linear-gradient(135deg, #059669 0%, #10b981 100%) !important; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2) !important;">
+            + Dodaj zadanie
+        </a>
     </div>
 
-    <div th:each="task : ${tasks}" class="task-card">
-        <h3 th:text="${task.title}"></h3>
-        <p th:text="${#strings.abbreviate(task.content, 100)}"></p>
-        <a th:href="@{/tasks/{id}(id=${task.id})}">Szczegóły</a>
+    <div style="margin-top: 2rem;">
+        <div th:each="task : ${tasks}" class="task-card">
+            <h4 th:text="${task.title}"></h4>
+            <p th:text="${#strings.abbreviate(task.content, 150)}"></p>
+            <div class="task-meta">
+                <span th:text="${task.category != null ? task.category.name : 'Ogólne'}"></span> |
+                <span th:text="${task.createdDate}"></span>
+            </div>
+            <a th:href="@{/tasks/{id}(id=${task.id})}" class="btn" style="font-size: 0.7rem; margin-top: 10px;">Szczegóły</a>
+        </div>
     </div>
-</main>
+</section>
 </body>
 </html>

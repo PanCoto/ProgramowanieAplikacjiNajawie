@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap');
+
+header {
+    background-color: #ffffff;
+    padding: 0.8rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+    position: relative;
+    z-index: 1000;
+    font-family: 'Inter', -apple-system, sans-serif;
+}
+
+header .logo a {
+    text-decoration: none !important;
+    border: none !important;
+    outline: none !important;
+    display: block;
+}
+
+header .logo h1 {
+    color: #4c1d95;
+    font-size: 1.7rem;
+    font-weight: 800;
+    margin: 0;
+    letter-spacing: -1.5px;
+    text-transform: lowercase;
+    text-decoration: none !important;
+}
+
+header nav ul {
+    list-style: none !important;
+    display: flex;
+    gap: 32px;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+header nav ul li a:not(.btn) {
+    text-decoration: none !important;
+    color: #475569 !important;
+    font-weight: 500;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    transition: all 0.2s ease;
+}
+
+header nav ul li a:not(.btn):hover {
+    color: #d946ef !important;
+}
+
+header nav ul li span {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    letter-spacing: 0.3px;
+}
+
+header nav ul li span span {
+    color: #1e293b;
+    font-weight: 600;
+}
+
+header nav ul li a.btn,
+header nav ul li form button.btn {
+    background: #1e293b !important;
+    color: #ffffff !important;
+    padding: 0.6rem 1.4rem !important;
+    border-radius: 50px !important;
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    border: none !important;
+    cursor: pointer;
+    transition: all 0.3s ease !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    text-decoration: none !important;
+    box-shadow: none !important;
+    font-family: 'Inter', sans-serif;
+}
+
+header nav ul li a.btn:hover,
+header nav ul li form button.btn:hover {
+    background: #d946ef !important;
+    transform: scale(1.05) translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(217, 70, 239, 0.4) !important;
+    color: #ffffff !important;
+}
+
+header nav ul li form {
+    margin: 0;
+    padding: 0;
+    display: flex;
+}

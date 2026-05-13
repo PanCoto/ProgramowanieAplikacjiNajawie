@@ -1,28 +1,32 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <title>Logowanie - StudyShare</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-</head>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout(content=~{::section}, bodyClass='video-bg-page', pageTitle='Logowanie - bookroot')}">
 <body>
-<main>
-    <form th:action="@{/login}" method="post" style="max-width: 400px; margin: 5rem auto;">
-        <h2>Logowanie</h2>
-        <div th:if="${param.error}" class="error-msg">Nieprawidłowy login lub hasło</div>
-        <div>
-            <label for="username">Login:</label><br>
-            <input type="text" id="username" name="username" required aria-required="true">
-        </div>
-        <br>
-        <div>
-            <label for="password">Hasło:</label><br>
-            <input type="password" id="password" name="password" required aria-required="true">
-        </div>
-        <br>
-        <button type="submit" class="btn">Zaloguj się</button>
-        <p>Nie masz konta? <a th:href="@{/register}">Zarejestruj się</a></p>
-    </form>
-</main>
+<section style="display: flex; justify-content: center; padding-top: 2rem;">
+    <div id="hero" style="max-width: 450px; width: 100%; padding: 3rem;">
+        <h2 style="margin-bottom: 2.5rem;">Zaloguj się</h2>
+
+        <form th:action="@{/login}" method="post" style="text-align: left;">
+            <div style="margin-bottom: 1.5rem;">
+                <label>Login</label>
+                <input type="text" name="username" required placeholder="Wpisz swój login">
+            </div>
+
+            <div style="margin-bottom: 2rem;">
+                <label>Hasło</label>
+                <input type="password" name="password" required placeholder="••••••••">
+            </div>
+
+            <button type="submit" class="btn" style="width: 100%; padding: 1rem; font-size: 1rem;">
+                Wejdź do systemu
+            </button>
+        </form>
+
+        <p style="margin-top: 2rem; font-size: 0.85rem; color: rgba(255,255,255,0.5) !important;">
+            Nie masz jeszcze konta?
+            <a th:href="@{/register}" style="color: var(--accent-color); text-decoration: none; font-weight: bold;">Zarejestruj się</a>
+        </p>
+    </div>
+</section>
 </body>
 </html>
